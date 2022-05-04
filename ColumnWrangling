@@ -1,5 +1,18 @@
-val df = spark.read.option("header","true").option("inferSchema","true").format("csv").load("USA_Housing.csv")
+var df = spark.read.option("header","true").option("inferSchema","true").format("csv").load("USA_Housing.csv")
+
+df = df.select($"Price", $"Avg Area Income", $"Avg Area House Age", $"Avg Area Number of Rooms", $"Area Population")
 
 
+// Convert to double 
+df = df.withColumn("Avg Area Income", df("Avg Area Income").cast("double"))
+df = df.withColumn("Avg Area House Age", df("Avg Area Income").cast("double"))
+df = df.withColumn("Avg Area Number of Rooms", df("Avg Area Number of Rooms").cast("double"))
+df = df.withColumn("Area Population", df("Area Population").cast("double"))
+
+df = df.withColumn("Price", df("Price").cast("double"))
+
+
+// Rename column
+df = df.withColumnRenamed("Price", "label")
 
 
