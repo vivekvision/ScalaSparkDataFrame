@@ -1,1 +1,5 @@
+val df = spark.read.option("header","true").option("inferSchema","true").format("csv").load("USA_Housing.csv")
+
+
+
 
